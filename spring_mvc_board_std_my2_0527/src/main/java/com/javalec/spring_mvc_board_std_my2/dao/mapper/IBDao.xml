@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javalec.spring_mvc_board_std_my2.dao.IBDao">
+   
+
+    <select id="list" resultType="com.javalec.spring_mvc_board_std_my2.dto.BDto">
+        select bId, bName, bTitle, bContent, bDate, bHit from mvc_board order by bId desc
+    </select>
+    <insert id="write" parameterType="hashmap">
+        insert into mvc_board(bId, bName, bTitle, bContent, bHit) values(mvc_board_seq.nextval,#{bName},#{bTitle},#{bContent},0)
+    </insert>
+    <select id="contentView" resultType="com.javalec.spring_mvc_board_std_my2.dto.BDto">
+        select bId, bName, bTitle, bContent, bDate, bHit from mvc_board where bId=#{bId}
+    </select>
+    <update id="upHit" parameterType="hashmap">
+        update mvc_board set bHit = bHit+1 where bId=#{bId}
+    </update>
+    <update id="modify" parameterType="hashmap">
+        update mvc_board set bTitle=#{bTitle}, bContent=#{bContent} where bId=#{bId}
+    </update>
+    <select id="modifyView" resultType="com.javalec.spring_mvc_board_std_my2.dto.BDto">
+        select bId, bName, bTitle, bContent, bDate, bHit from mvc_board where bId=#{bId}
+    </select>
+    <delete id="delete" parameterType="hashmap">
+       delete from mvc_board where bId=#{bId}
+    </delete>
+
+</mapper>
+
